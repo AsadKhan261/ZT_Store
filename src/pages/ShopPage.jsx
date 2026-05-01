@@ -1,5 +1,5 @@
 import { SlidersHorizontal, X } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Container from '../components/common/Container';
 import SectionTitle from '../components/common/SectionTitle';
@@ -16,6 +16,11 @@ function ShopPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const categoryParam = searchParams.get('category') || 'All';
   const sortParam = searchParams.get('sort') || 'featured';
+  const queryParam = searchParams.get('search') || '';
+
+  useEffect(() => {
+    setSearch(queryParam);
+  }, [queryParam]);
 
   const filteredProducts = useMemo(() => {
     const result = products
